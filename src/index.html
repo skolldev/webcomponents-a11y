@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>Stencil Component Starter</title>
+
+    <script type="module" src="/build/webcomponents-a11y.esm.js"></script>
+    <script nomodule src="/build/webcomponents-a11y.js"></script>
+  </head>
+  <body>
+    <h3>Labels</h3>
+
+    <!-- This doesnt correctly connect the label because of the shadow dom -->
+    <label for="email"> My Webcomponent Input </label>
+    <cc-input></cc-input>
+    <br />
+
+    <!-- As opposed to native -->
+    <label>
+      My native Input
+      <input type="text" aria-describedby="tooltip" />
+    </label>
+
+    <h3>Aria Attributes</h3>
+
+    <!--This tooltip wont be properly connected to the input above, because of the shadow dom-->
+    <cc-tooltip text="Shadow DOM tooltip"></cc-tooltip>
+    <br />
+
+    <h3>Modals</h3>
+    <button id="modal-opener">Open modal</button>
+    <cc-modal></cc-modal>
+    <h3>Lists</h3>
+    <!-- You can be sure that accessibility tools will correctly read the list items below -->
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+
+    <!-- This may or may not be correctly interpreted by accessibility tools -->
+    <cc-ul>
+      <cc-li>1</cc-li>
+      <cc-li>2</cc-li>
+      <cc-li>3</cc-li>
+    </cc-ul>
+  </body>
+  <script>
+    const modalOpener = document.getElementById('modal-opener');
+    const modal = document.querySelector('cc-modal');
+    modalOpener.addEventListener('click', () => {
+      console.log('hey');
+      modal.isOpen = true;
+    });
+    modal.addEventListener('closeModal', () => {
+      modal.isOpen = false;
+    });
+  </script>
+  <style>
+    /* This style wont apply to stuff inside the shadow dom */
+    *:focus-visible {
+      outline: 3px solid red;
+    }
+  </style>
+</html>
